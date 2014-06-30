@@ -1,15 +1,25 @@
 
 answers = 0
 choice = ''
+initial_choice = ''
 question_array = []
 choice_array = []
 answer_array = []
 explanation_array = []
-
 i = 0
 j = 0
 
-File.open("questions.txt") do |f|
+puts "What section would you like to study?: "
+puts "a) Human Growth and Development \nb) Social and Cultural Foundations \nc) Theories of Counseling and the Helping Relationship \nd) Groups \ne) Lifestyle and Career Development \nf) Appraisal \ng) Research and Program Evaluation \nh) Professional Orientation and Ethics \ni) Counseling Families, Diagnosis, and Advanced Concepts"
+inital_choice = gets.chomp
+
+if inital_choice == 'a'
+  file = "hgd_questions.txt"
+else
+  puts "not yet finished"
+end
+
+File.open(file) do |f|
   inQuestion = false
   inChoices = false
   inAnswer = false
@@ -52,17 +62,23 @@ File.open("questions.txt") do |f|
   end
 end
 
+puts " "
+puts "type 'q' anytime to quit" 
+
 while i < question_array.length do
+  puts " "
   puts "Question " + (i+1).to_s + ": "
   puts " "
   puts question_array[i]
-  puts "Multiple Choice: "
+  puts " "
   puts choice_array[j..j+3]
+  puts "Your answer?: "
   answer = gets.chomp
-  if answer.eql? answer_array[i]
+  if answer == 'q'
+    break
+  elsif answer.eql? answer_array[i]
     puts " "
     puts "Correct!"
-    puts " "
     answers += 1
   else
     puts " "
@@ -71,6 +87,8 @@ while i < question_array.length do
     choice = gets.chomp
     if choice == 'y'
         puts explanation_array[i]
+        puts "PRESS ENTER TO CONTINUE"
+        gets.chomp
     end
   end
 
@@ -78,4 +96,6 @@ while i < question_array.length do
   j += 4
 end
 
+puts " TOTAL SCORE: "
+puts ((answers.to_f/question_array.length) * 100).round.to_s + "%"
 puts "You got " + answers.to_s + " answers correct out of " + question_array.length.to_s + " total questions"
