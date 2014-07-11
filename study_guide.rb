@@ -1,4 +1,28 @@
 
+class String
+  # colorization
+  def colorize(color_code)
+    "\e[#{color_code}m#{self}\e[0m"
+  end
+
+  def red
+    colorize(31)
+  end
+
+  def green
+    colorize(32)
+  end
+
+  def yellow
+    colorize(33)
+  end
+
+  def pink
+    colorize(35)
+  end
+end
+
+
 answers = 0
 choice = ''
 initial_choice = ''
@@ -78,11 +102,11 @@ while i < question_array.length do
     break
   elsif answer.eql? answer_array[i]
     puts " "
-    puts "Correct!"
+    puts "Correct!".green
     answers += 1
   else
     puts " "
-    puts "Wrong, the answer is: " + answer_array[i]
+    puts "Wrong, the answer is: ".red + answer_array[i]
     puts "Would you like to see an explanation? "
     choice = gets.chomp
     if choice == 'y'
